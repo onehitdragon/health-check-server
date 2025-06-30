@@ -9,5 +9,7 @@ CREATE TABLE IF NOT EXISTS employee(
     phone VARCHAR(255) NOT NULL UNIQUE,
     address TEXT NOT NULL,
     work VARCHAR(255) NOT NULL,
-    workPlace TEXT NOT NULL
+    workPlace TEXT NOT NULL,
+    created_at DATE DEFAULT (datetime('now')),
+    update_at DATE DEFAULT (datetime('now'))
 );
