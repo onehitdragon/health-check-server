@@ -107,4 +107,59 @@ async function create(){
     await fs.writeFile(path.join(__dirname, "example.pdf"), pdfBytes);
 }
 
-create();
+async function create2(){
+    const file = await fs.readFile("public/pdf/2.pdf");
+    const pdfDoc = await PDFDocument.load(file);
+    const page = pdfDoc.getPage(0);
+    pdfDoc.registerFontkit(fontkit);
+    const fontFile1 = await fs.readFile("tools/Roboto/static/Roboto-Bold.ttf");
+    const font1 = await pdfDoc.embedFont(fontFile1);
+    const color = rgb(1, 0, 0);
+    page.drawText('NGUYỄN VĂN A', {
+        x: 125,
+        y: 567,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+    page.drawText('Nam', {
+        x: 445,
+        y: 567,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+    page.drawText('03/02/1999', {
+        x: 140,
+        y: 545,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+    page.drawText('NV0', {
+        x: 445,
+        y: 545,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+    page.drawText('Sản xuất', {
+        x: 215,
+        y: 457,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+    page.drawText('Phường 10', {
+        x: 225,
+        y: 414,
+        size: 12,
+        font: font1,
+        color: color,
+    });
+
+    const pdfBytes = await pdfDoc.save();
+    await fs.writeFile(path.join(__dirname, "example.pdf"), pdfBytes);
+}
+
+create2();

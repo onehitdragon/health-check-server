@@ -98,7 +98,25 @@ async function getAllPageEmployee(pageSize: number, offset: number){
     return query.all(pageSize, offset) as Employee[];
 }
 
+async function savePrintHistory(msts: Employee["mst"][]){
+    const db = getDB();
+    const insert = db.prepare(
+        "INSERT INTO print_history(employee_mst) VALUES(?)"
+    );
+    for(const mst of msts){
+        insert.run(mst);
+    }
+}
+
+async function deleteByMst(mst: Employee["mst"]){
+    const db = getDB();
+    const del = db.prepare(
+        "DELETE FROM employee WHERE mst = ?"
+    );
+    del.run(mst);
+}
+
 export { Employee }
 export { addEmployee, existEmployeeWithMst, existEmployeeWithCccd, existEmployeeWithPhone,
-    getAllEmployee, addEmployees, getAllPageEmployee
+    getAllEmployee, addEmployees, getAllPageEmployee, savePrintHistory, deleteByMst
  };

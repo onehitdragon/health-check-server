@@ -1,5 +1,6 @@
 import express from "express";
-import { addEmployee, addEmployees, Employee, existEmployeeWithCccd, existEmployeeWithMst, existEmployeeWithPhone, getAllEmployee, getAllPageEmployee } from "../model/employee";
+import { addEmployee, addEmployees, deleteByMst, Employee, existEmployeeWithCccd, existEmployeeWithMst, existEmployeeWithPhone, getAllEmployee, getAllPageEmployee, savePrintHistory } from "../model/employee";
+import { getPrintHistories } from "../model/print-history";
 
 const router = express.Router();
 
@@ -130,6 +131,51 @@ router.post("/addall", async (req, res) => {
         res.status(200).json({
             added: employees.length
         });
+    }
+    catch(err){
+        res.status(500).json({
+            err: "Server internal error"
+        });
+        console.log(err);
+    }
+});
+
+router.post("/saveprinthistory", async (req, res) => {
+    try{
+        const msts: Employee["mst"][] = req.body;
+        await savePrintHistory(msts);
+        res.status(200).json({
+            saved: msts.length
+        });
+    }
+    catch(err){
+        res.status(500).json({
+            err: "Server internal error"
+        });
+        console.log(err);
+    }
+});
+
+router.delete("/", async (req, res) => {
+    try{
+        const mst = req.query.mst as Employee["mst"];
+        await deleteByMst(mst);
+        res.status(200).json({
+            deleted: mst
+        });
+    }
+    catch(err){
+        res.status(500).json({
+            err: "Server internal error"
+        });
+        console.log(err);
+    }
+});
+
+router.get("/printhistory", async (req, res) => {
+    try{
+        const printHistories = await getPrintHistories();
+        res.status(200).json({ printHistories });
     }
     catch(err){
         res.status(500).json({

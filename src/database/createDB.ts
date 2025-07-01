@@ -19,7 +19,7 @@ async function createDB(){
 
 async function insertDB(){
     const db = new Database(path.join(__dirname, "mydb.sqlite"));
-    const insert = db.prepare(
+    let insert = db.prepare(
         "INSERT INTO employee(mst, fullname, gender, birthday, cccd, cccdDate, cccdAt, phone, address, work, workPlace) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     insert.run(
@@ -50,6 +50,16 @@ async function insertDB(){
             `Công ty ${faker.company.name()}`
         );
     }
+    insert = db.prepare(
+        "INSERT INTO print_history(employee_mst) VALUES(?)"
+    );
+    insert.run(
+        'NV0'
+    );
+    insert.run(
+        'NV1'
+    );
+
     db.close();
 }
 
