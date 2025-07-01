@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 src/database/mydb.sqlite
+tools/*.xlsx
+tools/*.pdf
+tools/Roboto

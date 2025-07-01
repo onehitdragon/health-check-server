@@ -60,7 +60,37 @@ async function addEmployee(ee: Employee){
     );
 }
 
-async function getAllEmployee(pageSize: number, offset: number){
+async function addEmployees(ees: Employee[]){
+    const db = getDB();
+    const insert = db.prepare(
+        "INSERT INTO employee(mst, fullname, gender, birthday, cccd, cccdDate, cccdAt, phone, address, work, workPlace) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    for(const ee of ees){
+        insert.run(
+            ee.mst,
+            ee.fullname,
+            ee.gender,
+            ee.birthday,
+            ee.cccd,
+            ee.cccdDate,
+            ee.cccdAt,
+            ee.phone,
+            ee.address,
+            ee.work,
+            ee.workPlace
+        );
+    }
+}
+
+async function getAllEmployee(){
+    const db = getDB();
+    const query = db.prepare(
+        "SELECT * FROM employee"
+    );
+    return query.all() as Employee[];
+}
+
+async function getAllPageEmployee(pageSize: number, offset: number){
     const db = getDB();
     const query = db.prepare(
         "SELECT * FROM employee LIMIT ? OFFSET ?"
@@ -70,5 +100,5 @@ async function getAllEmployee(pageSize: number, offset: number){
 
 export { Employee }
 export { addEmployee, existEmployeeWithMst, existEmployeeWithCccd, existEmployeeWithPhone,
-    getAllEmployee
+    getAllEmployee, addEmployees, getAllPageEmployee
  };

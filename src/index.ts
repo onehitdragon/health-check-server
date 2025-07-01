@@ -1,11 +1,18 @@
 import express from "express";
 import { employeeRouter } from "./router/employee-router";
+import cors from "cors"
 import { createDB, removeDBIfExist, insertDB } from "./database/createDB";
 import { existEmployeeWithCccd, existEmployeeWithMst, existEmployeeWithPhone, getAllEmployee } from "./model/employee";
 
 const app = express();
+app.use(cors())
 app.use(express.json());
+app.use(express.static("public"))
+// app.use((req, res, next) => {
+//     setTimeout(next, 1000);
+// });
 
+app.get("/test", (req, res) => { res.status(200).json({ status: "server running..." }); })
 app.use("/employee", employeeRouter);
 
 async function startServer(){
@@ -24,7 +31,7 @@ async function startServer(){
             if(err) throw err;
             console.log("server listening...");
 
-            console.log(await getAllEmployee(1000, 100));
+            // console.log(await getAllEmployee(1000, 100));
         });
     }
     catch(err){

@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node .",
+    "tool": "nodemon --watch tools --ext ts --exec ts-node tools/createPDF",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,12 +13,19 @@
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
     "better-sqlite3": "^12.2.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/fontkit": "^2.0.8",
+    "fontkit": "^2.0.4",
     "nodemon": "^3.1.10",
-    "typescript": "^5.8.3"
+    "pdf-lib": "^1.17.1",
+    "typescript": "^5.8.3",
+    "xlsx": "^0.18.5"
   }
 }
