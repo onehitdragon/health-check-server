@@ -3,17 +3,20 @@ import { employeeRouter } from "./router/employee-router";
 import cors from "cors"
 import { createDB, removeDBIfExist, insertDB } from "./database/createDB";
 import { existEmployeeWithCccd, existEmployeeWithMst, existEmployeeWithPhone, getAllEmployee } from "./model/employee";
+import path from "path";
 
 const app = express();
 app.use(cors())
 app.use(express.json());
-app.use(express.static("public"))
-// app.use((req, res, next) => {
-//     setTimeout(next, 1000);
-// });
+app.use(express.static("dist"));
 
-app.get("/test", (req, res) => { res.status(200).json({ status: "server running..." }); })
-app.use("/employee", employeeRouter);
+app.use("/api", express.static("public"));
+app.get("/api/test", (req, res) => { res.status(200).json({ status: "server running..." }); })
+app.use("/api/employee", employeeRouter);
+
+app.get("/*splat", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
+});
 
 async function startServer(){
     try{

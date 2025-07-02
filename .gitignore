@@ -5,3 +5,4 @@ tools/*.xlsx
 tools/*.pdf
 tools/Roboto
 buildexe
+dist
