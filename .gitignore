@@ -6,3 +6,4 @@ tools/*.pdf
 tools/Roboto
 buildexe
 dist
+server.tar.gz
