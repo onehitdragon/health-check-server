@@ -1,0 +1,5 @@
+{
+    "main": "buildexe/app.js",
+    "output": "buildexe/sea-prep.blob",
+    "disableExperimentalSEAWarning": true
+}
