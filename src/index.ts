@@ -15,7 +15,7 @@ app.get("/api/test", (req, res) => { res.status(200).json({ status: "server runn
 app.use("/api/employee", employeeRouter);
 
 app.get("/*splat", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
+    res.sendFile(path.join(process.cwd(), "dist", "index.html"));
 });
 
 async function startServer(){
